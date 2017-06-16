@@ -598,7 +598,7 @@ var restaurants = [{
   "id": 17709567,
   "name": "Tolli's Apizza",
   "address": "410 Main St 06512"
-}]
+}];
 
 function RestaurantsViewModel() {
   var self = this;
@@ -624,7 +624,7 @@ function RestaurantsViewModel() {
     else {
       init = true;
     }
-  }
+  };
 }
 
 function initMap() {
@@ -717,18 +717,30 @@ function addMarkers(list, map) {
   }
   markers = [];
 
-  for (var i = 0; i < list.length; i++) {
+  // Another closure! Create an onclick event to open the large infowindow at each marker.
+  function markerHelper(marker) {
+    return function() {
+      map.panTo(marker.position);
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+        marker.setAnimation(null);
+      }, 750);
+      populateInfoWindow(marker, largeInfowindow);
+    };
+  }
+
+  for (var j = 0; j < list.length; j++) {
     // Create a marker per location, and put into markers array.
     var marker = new google.maps.Marker({
       position: {
-        lat: list[i].lat,
-        lng: list[i].lng
+        lat: list[j].lat,
+        lng: list[j].lng
       },
-      title: list[i].name,
+      title: list[j].name,
       map: map,
       icon: 'images/pizza_icon.png',
       animation: google.maps.Animation.DROP,
-      id: list[i].id
+      id: list[j].id
     });
     // Push the marker to our array of markers.
     markers.push(marker);
@@ -741,35 +753,27 @@ function addMarkers(list, map) {
       this.setIcon('images/pizza_icon.png');
     });
 
-    // Another closure! Create an onclick event to open the large infowindow at each marker.
-    marker.addListener('click', function(marker) {
-      return function() {
-        map.panTo(marker.position);
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-          marker.setAnimation(null);
-        }, 750);
-        populateInfoWindow(marker, largeInfowindow);
-      }
-    }(marker));
+    marker.addListener('click', markerHelper(marker));
   }
 }
 
 function linkMarkers(markers) {
   // Wow, a closure! Adds event listener to open infowindow for link clicks.
+  function linkHelper(marker) {
+    return function() {
+      map.panTo(marker.position);
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+        marker.setAnimation(null);
+      }, 750);
+      populateInfoWindow(marker, largeInfowindow);
+    };
+  }
+
   for (var i = 0; i < markers.length; i++) {
     var link = document.getElementById(markers[i].id);
     var marker = markers[i];
-    link.addEventListener('click', function(marker) {
-      return function() {
-        map.panTo(marker.position);
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-          marker.setAnimation(null);
-        }, 750);
-        populateInfoWindow(marker, largeInfowindow);
-      }
-    }(marker));
+    link.addEventListener('click', linkHelper(marker));
   }
 }
 
@@ -800,12 +804,10 @@ function populateInfoWindow(marker, infowindow) {
       dataType: "json",
 
       success: function(data) {
-        var rating = data.user_rating.rating_text
-        if (data.average_cost_for_two != 0) {
-          var cost = "$" + data.average_cost_for_two.toString();
-        }
-        else {
-          cost = "Not found";
+        var cost = "Not found";
+        var rating = data.user_rating.rating_text;
+        if (data.average_cost_for_two !== 0) {
+          cost = "$" + data.average_cost_for_two.toString();
         }
         infowindow.setContent('<h5>' + marker.title + '</h5>' +
           '<li>Rating: ' + rating + '</li><li>Average cost for two: ' + cost + '</li>');
@@ -823,7 +825,7 @@ function populateInfoWindow(marker, infowindow) {
 
 // Global variables
 var map = initMap();
-var markers = []
+var markers = [];
 var largeInfowindow = new google.maps.InfoWindow();
 var RestaurantViewModel = new RestaurantsViewModel();
 
