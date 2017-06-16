@@ -825,7 +825,7 @@ function populateInfoWindow(marker, infowindow) {
 var map = initMap();
 var markers = []
 var largeInfowindow = new google.maps.InfoWindow();
-var RestaurantViewModel = new
+var RestaurantViewModel = new RestaurantsViewModel();
 
 // Initialize
 ko.applyBindings(RestaurantViewModel);
