@@ -1,0 +1,26 @@
+{
+  "name": "new-haven-pizza-map",
+  "homepage": "https://github.com/spaceraccoon/neighborhood-map",
+  "authors": [
+    "Eugene Lim <limzhiweieugene@gmail.com>"
+  ],
+  "description": "A map of pizza places in New Haven.",
+  "main": "index.html",
+  "keywords": [
+    "map",
+    "javascript"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "knockout": "^3.4.2"
+  }
+}
