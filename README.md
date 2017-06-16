@@ -4,15 +4,16 @@ Neighborhood map project for Udacity Full Stack Web Developer Nanodegree. Shows 
 
 ## Installation
 1. Clone the project and `cd` into it.
-2. Install the dependencies via bower `bower install bootstrap#v4.0.0-alpha.6` `bower install knockout`.
-3. Generate a [Zomato API key](https://developers.zomato.com/api) and add it to `user-key` in `js/app.js`.
-4. Generate a [Google Maps JavaScript API key](https://developers.google.com/maps/documentation/javascript/) add add it to `<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&v=3"></script>` in `index.html`.
-5. Open `index.html` and enjoy!
+2. [Install bower](https://bower.io/#install-bower) if necessary.
+3. Install the dependencies via bower `bower install bootstrap#v4.0.0-alpha.6` `bower install knockout`.
+4. Generate a [Zomato API key](https://developers.zomato.com/api) and add it to `user-key` in `js/app.js`.
+5. Generate a [Google Maps JavaScript API key](https://developers.google.com/maps/documentation/javascript/) add add it to `<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&v=3"></script>` in `index.html`.
+6. Open `index.html` and enjoy!
 
 ## Credits
 * The dashboard was built off Bootstrap 4's [Dashboard example](https://v4-alpha.getbootstrap.com/examples/).
 * Pizza icon from [IconArchive](http://www.iconarchive.com/show/swarm-icons-by-sonya/Pizza-icon.html).
-*
+
 ## Possible improvements
 * Better presentation of Zomato data
 * Photos

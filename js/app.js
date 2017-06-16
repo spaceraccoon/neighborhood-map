@@ -726,7 +726,7 @@ function addMarkers(list, map) {
       },
       title: list[i].name,
       map: map,
-      icon: '/images/pizza_icon.png',
+      icon: 'images/pizza_icon.png',
       animation: google.maps.Animation.DROP,
       id: list[i].id
     });
@@ -735,10 +735,10 @@ function addMarkers(list, map) {
 
     // Change icon size on mouseover
     marker.addListener('mouseover', function() {
-      this.setIcon('/images/pizza_icon_large.png');
+      this.setIcon('images/pizza_icon_large.png');
     });
     marker.addListener('mouseout', function() {
-      this.setIcon('/images/pizza_icon.png');
+      this.setIcon('images/pizza_icon.png');
     });
 
     // Another closure! Create an onclick event to open the large infowindow at each marker.
