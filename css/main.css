@@ -1,0 +1,64 @@
+/*
+ * Typography
+ */
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  padding: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #eee;
+}
+
+
+/* Sidebar navigation */
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.sidebar .nav-item+.nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+  color: #999;
+}
+
+.navbar-inverse .navbar-toggler {
+  margin: 0 0 10px;
+}
+
+
+/*
+ * Dashboard
+ */
+
+.main {
+  padding: 0;
+  height: 100vh;
+}
+
+#dashboard {
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+
+/*
+ * Map
+ */
+
+#map {
+  height: 100%;
+}
