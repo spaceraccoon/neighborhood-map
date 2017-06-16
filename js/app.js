@@ -1,6 +1,5 @@
 function RestaurantsViewModel() {
   var self = this;
-  var init = false;
 
   self.query = ko.observable('');
 
@@ -14,25 +13,33 @@ function RestaurantsViewModel() {
     return restaurantList;
   }, this);
 
-  self.refreshMarkers = function() {
+  self.res_ids = ko.computed(function() {
     var res_ids = [];
-    for (var restaurant in self.restaurantList()) {
-      var res_id = self.restaurantList()[restaurant].res_id;
-      res_ids.push(res_id)
+    for(var i = 0; i < self.restaurantList().length; i++) {
+      var res_id = self.restaurantList()[i].res_id;
+      res_ids.push(res_id);
     }
+    return res_ids;
+  }, this);
 
-    for (var marker in markers) {
-      if (res_ids.indexOf(markers[marker].res_id) < 0) {
-        markers[marker].setVisible(false);
+  self.refreshMarkers = function() {
+    for(var i = 0; i < markers.length; i++) {
+      if (self.res_ids().indexOf(markers[i].res_id) < 0) {
+        markers[i].setVisible(false);
       } else {
-        markers[marker].setVisible(true);
+        markers[i].setVisible(true);
       }
     }
+  };
+
+  self.openMarker = function(restaurant) {
+    index = self.res_ids.indexOf(restaurant.res_id);
+    google.maps.event.trigger(markers[index], 'click');
   };
 }
 
 function initMap() {
-  getRestaurants();
+  restaurants = getRestaurants();
 
   var styles = [{
     "featureType": "landscape",
@@ -122,7 +129,7 @@ function initMap() {
       marker.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function() {
         marker.setAnimation(null);
-      }, 750);
+      }, 1400);
       populateInfoWindow(marker, largeInfowindow);
     };
   }
@@ -159,33 +166,11 @@ function initMap() {
   // Initialize
   RestaurantViewModel = new RestaurantsViewModel();
   ko.applyBindings(RestaurantViewModel);
-  linkMarkers(markers);
-
-};
+}
 
 function mapError() {
   // Error handling
   alert('Failed to load Google Maps API.');
-};
-
-function linkMarkers(markers) {
-  // Wow, a closure! Adds event listener to open infowindow for link clicks.
-  function linkHelper(marker) {
-    return function() {
-      map.panTo(marker.position);
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function() {
-        marker.setAnimation(null);
-      }, 750);
-      populateInfoWindow(marker, largeInfowindow);
-    };
-  }
-
-  for (var i = 0; i < markers.length; i++) {
-    var link = document.getElementById(markers[i].res_id);
-    var marker = markers[i];
-    link.addEventListener('click', linkHelper(marker));
-  }
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -235,20 +220,22 @@ function populateInfoWindow(marker, infowindow) {
 }
 
 function getRestaurants() {
-  // Sent AJAX request to Zomato, failing gracefully if error found.
+  // Retrieves restaurants from json, failing gracefully if error found.
+  var output = null;
   $.ajax({
     url: "restaurants.json",
     type: "GET",
     dataType: "json",
-
     success: function(data) {
-      console.log(data);
+      output = data;
     },
     error: function(err) {
       console.log(err);
-      infowindow.setContent('<h5>' + marker.title + '</h5>' + 'No data found.');
-    }
+      alert('Unable to fetch restaurants from restaurants.json. Local, non-server implementations are not allowed.');
+    },
+    async: false    // Need to return output
   });
+  return output;
 }
 
 // Global variables

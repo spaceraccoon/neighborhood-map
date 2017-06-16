@@ -19,7 +19,7 @@
           <div class="collapse navbar-collapse" id="sidebar">
             <ul class="nav nav-pills flex-column" data-bind="foreach: restaurantList">
               <li class="nav-item">
-                <a class="nav-link" data-bind="text: name, attr: { id: res_id }" href="#"></a>
+                <a class="nav-link" data-bind="text: name, attr: { id: res_id }, event: { click: $root.openMarker }" href="#"></a>
               </li>
             </ul>
           </div>
@@ -34,6 +34,6 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src='bower_components/knockout/dist/knockout.js'></script>
     <script src="js/app.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlcurrqIh1EalOvUCQTtGmiAKDKszs1ZQ&v=3&callback=initMap" async defer onerror="alert('Failed to load Google Maps API.');"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlcurrqIh1EalOvUCQTtGmiAKDKszs1ZQ&v=3&callback=initMap" async defer onerror="mapError()"></script>
   </body>
 </html>
