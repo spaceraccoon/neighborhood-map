@@ -33,7 +33,7 @@ function RestaurantsViewModel() {
   };
 
   self.openMarker = function(restaurant) {
-    index = self.res_ids.indexOf(restaurant.res_id);
+    index = self.res_ids().indexOf(restaurant.res_id);
     google.maps.event.trigger(markers[index], 'click');
   };
 }
