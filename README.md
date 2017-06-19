@@ -1,5 +1,5 @@
 # New Haven Pizza Map
-Neighborhood map project for Udacity Full Stack Web Developer Nanodegree. Shows pizza places in New Haven with live search and additional Zomato information. Uses the Google Maps Javascript API, Zomato API, and Knockout JS.
+Neighborhood map project for Udacity Full Stack Web Developer Nanodegree. Shows pizza places in New Haven with live search and additional Zomato information. Uses the Google Maps Javascript API, Zomato API, and Knockout JS. A demo is available [here](https://spaceraccoon.github.io/new-haven-pizza-map/).
 
 ![Screenshot](screenshot.png)
 
